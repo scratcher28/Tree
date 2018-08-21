@@ -96,7 +96,7 @@ class Tree implements \JsonSerializable
      * @throws \Ikwilkoffie\Tree\Exception\InvalidParentException
      * @throws \Ikwilkoffie\Tree\Exception\InvalidDatatypeException
      */
-    public function rebuildWithData(array $data)
+    public function rebuildWithData($data)
     {
         $this->build($data);
     }
@@ -109,7 +109,7 @@ class Tree implements \JsonSerializable
      *                the first level 1 item (and their children), then
      *                the second level 1 item and so on.
      */
-    public function getNodes(): array
+    public function getNodes()
     {
         $nodes = [];
         foreach ($this->nodes[$this->rootId]->getDescendants() as $subnode) {
@@ -128,7 +128,7 @@ class Tree implements \JsonSerializable
      *
      * @return Node
      */
-    public function getNodeById($id): Node
+    public function getNodeById($id)
     {
         if (empty($this->nodes[$id])) {
             throw new \InvalidArgumentException("Invalid node primary key $id");
@@ -142,7 +142,7 @@ class Tree implements \JsonSerializable
      *
      * @return Node[] Nodes in the correct order
      */
-    public function getRootNodes(): array
+    public function getRootNodes()
     {
         return $this->nodes[$this->rootId]->getChildren();
     }
@@ -161,9 +161,9 @@ class Tree implements \JsonSerializable
      *
      * @return Node|null
      */
-    public function getNodeByValuePath($name, array $search)
+    public function getNodeByValuePath($name, $search)
     {
-        $findNested = function (array $nodes, array $tokens) use ($name, &$findNested) {
+        $findNested = function ($nodes, $tokens) use ($name, &$findNested) {
             $token = array_shift($tokens);
             foreach ($nodes as $node) {
                 $nodeName = $node->get($name);
@@ -278,7 +278,7 @@ class Tree implements \JsonSerializable
      *
      * @return Node
      */
-    protected function createNode($id, $parent, array $properties): Node
+    protected function createNode($id, $parent, $properties)
     {
         return new Node($id, $parent, $properties);
     }

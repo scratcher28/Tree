@@ -37,7 +37,7 @@ class Node implements \JsonSerializable
      * @param string|int $parent
      * @param array      $properties Associative array of node properties
      */
-    public function __construct($id, $parent, array $properties = [])
+    public function __construct($id, $parent, $properties = [])
     {
         $this->properties = array_change_key_case($properties, CASE_LOWER);
         unset($this->properties['id'], $this->properties['parent']);
@@ -50,7 +50,7 @@ class Node implements \JsonSerializable
      *
      * @param Node $child
      */
-    public function addChild(Node $child)
+    public function addChild($child)
     {
         $this->children[] = $child;
         $child->parent = $this;
@@ -84,7 +84,7 @@ class Node implements \JsonSerializable
      *
      * @return Node|null
      */
-    private function getSibling(int $offset)
+    private function getSibling($offset)
     {
         $siblingsAndSelf = $this->parent->getChildren();
         $pos = array_search($this, $siblingsAndSelf, true);
@@ -100,7 +100,7 @@ class Node implements \JsonSerializable
      *
      * @return Node[]
      */
-    public function getSiblings(): array
+    public function getSiblings()
     {
         return $this->getSiblingsGeneric(false);
     }
@@ -110,7 +110,7 @@ class Node implements \JsonSerializable
      *
      * @return Node[]
      */
-    public function getSiblingsAndSelf(): array
+    public function getSiblingsAndSelf()
     {
         return $this->getSiblingsGeneric(true);
     }
@@ -120,7 +120,7 @@ class Node implements \JsonSerializable
      *
      * @return array
      */
-    protected function getSiblingsGeneric(bool $includeSelf): array
+    protected function getSiblingsGeneric(bool $includeSelf)
     {
         $siblings = [];
         foreach ($this->parent->getChildren() as $child) {
@@ -137,7 +137,7 @@ class Node implements \JsonSerializable
      *
      * @return Node[]
      */
-    public function getChildren(): array
+    public function getChildren()
     {
         return $this->children;
     }
@@ -149,7 +149,7 @@ class Node implements \JsonSerializable
      */
     public function getParent()
     {
-        return $this->parent ?? null;
+        return $this->parent ? $this->parent : null;
     }
 
     /**
@@ -240,7 +240,7 @@ class Node implements \JsonSerializable
      *
      * @return int Tree level (1 = top level)
      */
-    public function getLevel(): int
+    public function getLevel()
     {
         if (null === $this->parent) {
             return 0;
@@ -254,7 +254,7 @@ class Node implements \JsonSerializable
      *
      * @return bool
      */
-    public function hasChildren(): bool
+    public function hasChildren()
     {
         return \count($this->children) > 0;
     }
@@ -264,7 +264,7 @@ class Node implements \JsonSerializable
      *
      * @return int
      */
-    public function countChildren(): int
+    public function countChildren()
     {
         return \count($this->children);
     }
@@ -279,7 +279,7 @@ class Node implements \JsonSerializable
      *
      * @return Node[]
      */
-    public function getDescendants(): array
+    public function getDescendants()
     {
         return $this->getDescendantsGeneric(false);
     }
@@ -292,7 +292,7 @@ class Node implements \JsonSerializable
      *
      * @return Node[]
      */
-    public function getDescendantsAndSelf(): array
+    public function getDescendantsAndSelf()
     {
         return $this->getDescendantsGeneric(true);
     }
@@ -302,7 +302,7 @@ class Node implements \JsonSerializable
      *
      * @return array
      */
-    protected function getDescendantsGeneric(bool $includeSelf): array
+    protected function getDescendantsGeneric(bool $includeSelf)
     {
         $descendants = $includeSelf ? [$this] : [];
         foreach ($this->children as $childnode) {
@@ -327,7 +327,7 @@ class Node implements \JsonSerializable
      * @return Node[] Indexed array of nodes, sorted from the nearest
      *                one (or self) to the most remote one
      */
-    public function getAncestors(): array
+    public function getAncestors()
     {
         return $this->getAncestorsGeneric(false);
     }
@@ -341,7 +341,7 @@ class Node implements \JsonSerializable
      *
      * @return Node[] Indexed, sorted array of nodes: self, parent, grandparent, ...
      */
-    public function getAncestorsAndSelf(): array
+    public function getAncestorsAndSelf()
     {
         return $this->getAncestorsGeneric(true);
     }
@@ -351,7 +351,7 @@ class Node implements \JsonSerializable
      *
      * @return array
      */
-    protected function getAncestorsGeneric(bool $includeSelf): array
+    protected function getAncestorsGeneric($includeSelf)
     {
         if (null === $this->parent) {
             return [];
@@ -367,7 +367,7 @@ class Node implements \JsonSerializable
      *
      * @return array Associative array
      */
-    public function toArray(): array
+    public function toArray()
     {
         return $this->properties;
     }
