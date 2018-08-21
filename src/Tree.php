@@ -5,6 +5,7 @@ namespace BlueM;
 use BlueM\Tree\Exception\InvalidDatatypeException;
 use BlueM\Tree\Exception\InvalidParentException;
 use BlueM\Tree\Node;
+use Illuminate\Support\ServiceProvider;
 
 /**
  * Builds and gives access to a tree of nodes which is constructed thru nodes' parent node ID references.
@@ -14,6 +15,13 @@ use BlueM\Tree\Node;
  */
 class Tree implements \JsonSerializable
 {
+    /**
+     * The application instance.
+     *
+     * @var \Illuminate\Contracts\Foundation\Application
+     */
+    protected $app;
+
     /**
      * API version (will always be in sync with first digit of release version number).
      *
@@ -51,12 +59,17 @@ class Tree implements \JsonSerializable
      * @throws \BlueM\Tree\Exception\InvalidDatatypeException
      * @throws \InvalidArgumentException
      */
-    public function __construct($data = [], array $options = [])
+    public function __construct()
+    {
+
+    }
+
+    public function setOptions($options)
     {
         $options = array_change_key_case($options, CASE_LOWER);
 
-        if (isset($options['rootid'])) {
-            if (!\is_scalar($options['rootid'])) {
+        if (array_key_exists('rootid', $options)) {
+            if ($options['rootid'] !== null && !\is_scalar($options['rootid'])) {
                 throw new \InvalidArgumentException('Option “rootid” must be a scalar');
             }
             $this->rootId = $options['rootid'];
@@ -75,8 +88,6 @@ class Tree implements \JsonSerializable
             }
             $this->parentKey = $options['parent'];
         }
-
-        $this->build($data);
     }
 
     /**
@@ -182,7 +193,7 @@ class Tree implements \JsonSerializable
      * @throws \BlueM\Tree\Exception\InvalidParentException
      * @throws InvalidDatatypeException
      */
-    private function build($data)
+    public function build($data)
     {
         if (!\is_array($data) && !($data instanceof \Traversable)) {
             throw new InvalidDatatypeException('Data must be an iterable (array or implement Traversable)');
