@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueM\Tree\Exception;
+namespace Ikwilkoffie\Tree\Exception;
 
 /**
  * Exception which will be thrown if a tree node's parent ID points to an inexistent node.

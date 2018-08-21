@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueM\Tree\Exception;
+namespace Ikwilkoffie\Tree\Exception;
 
 /**
  * Exception which will be thrown if a the data for a tree is given as an unusable type.

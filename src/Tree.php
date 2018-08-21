@@ -1,10 +1,10 @@
 <?php
 
-namespace BlueM;
+namespace Ikwilkoffie;
 
-use BlueM\Tree\Exception\InvalidDatatypeException;
-use BlueM\Tree\Exception\InvalidParentException;
-use BlueM\Tree\Node;
+use Ikwilkoffie\Tree\Exception\InvalidDatatypeException;
+use Ikwilkoffie\Tree\Exception\InvalidParentException;
+use Ikwilkoffie\Tree\Node;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -55,8 +55,8 @@ class Tree implements \JsonSerializable
      *                                    (name of the ID field / array key, defaults to "id"), "parent", (name of the parent
      *                                    ID field / array key, defaults to "parent")
      *
-     * @throws \BlueM\Tree\Exception\InvalidParentException
-     * @throws \BlueM\Tree\Exception\InvalidDatatypeException
+     * @throws \Ikwilkoffie\Tree\Exception\InvalidParentException
+     * @throws \Ikwilkoffie\Tree\Exception\InvalidDatatypeException
      * @throws \InvalidArgumentException
      */
     public function __construct()
@@ -93,8 +93,8 @@ class Tree implements \JsonSerializable
     /**
      * @param array $data
      *
-     * @throws \BlueM\Tree\Exception\InvalidParentException
-     * @throws \BlueM\Tree\Exception\InvalidDatatypeException
+     * @throws \Ikwilkoffie\Tree\Exception\InvalidParentException
+     * @throws \Ikwilkoffie\Tree\Exception\InvalidDatatypeException
      */
     public function rebuildWithData(array $data)
     {
@@ -190,7 +190,7 @@ class Tree implements \JsonSerializable
      *
      * @param array|\Traversable $data The data from which to generate the tree
      *
-     * @throws \BlueM\Tree\Exception\InvalidParentException
+     * @throws \Ikwilkoffie\Tree\Exception\InvalidParentException
      * @throws InvalidDatatypeException
      */
     public function build($data)

@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueM\Tree;
+namespace Ikwilkoffie\Tree;
 
 /**
  * Represents a node in a tree of nodes.
