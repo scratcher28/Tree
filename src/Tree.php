@@ -202,6 +202,13 @@ class Tree implements \JsonSerializable
         $this->nodes = [];
         $children = [];
 
+        // Check for non existent parents
+        foreach ($data as $i => $item) {
+            if(!in_array($item['parent_category_id'], array_column($data, 'id'))) { // search value in the array
+                $data[$i]['parent_category_id'] = '';
+            }
+        }
+
         // Create the root node
         $this->nodes[$this->rootId] = $this->createNode($this->rootId, null, []);
 
