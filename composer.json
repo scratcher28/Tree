@@ -1,5 +1,5 @@
 {
-    "name": "ikwilkoffie/tree",
+    "name": "scratcher28/tree",
     "type": "library",
     "description": "A fork of the BlueM/Tree library to make it work for me. The original is found here: https://github.com/BlueM/Tree",
     "keywords": ["tree", "hierarchical"],
